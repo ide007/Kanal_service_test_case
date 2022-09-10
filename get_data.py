@@ -14,7 +14,7 @@ def google_authorize(filename):
         CREDENTIALS_FILE,
         ['https://www.googleapis.com/auth/spreadsheets',
          'https://www.googleapis.com/auth/drive'])
-    return credentials.google_authorize(httplib2.Http())
+    return credentials.authorize(httplib2.Http())
 
 
 def add_column(lst):
@@ -40,7 +40,11 @@ def get_values(spreadsheet_id):
         print(f'An error occurred: {err}')
 
 
+def main():
+    data = add_column(get_values('1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE'))
+    return data
+
+
 if __name__ == '__main__':
-    data = get_values('1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE')
-    new = add_column(data)
-    pprint(new)
+    main()
+    # pprint(data)
