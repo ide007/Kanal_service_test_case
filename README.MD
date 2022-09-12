@@ -9,12 +9,13 @@
     
     + Данные для перевода $ в рубли получаем по курсу ЦБ РФ.
     
-Для запуска скрипта необходимо наличие на целевом компьютере:
-    - Python версии 3.6 или старше
-    - установлены пакеты из файла requirements.txt
-    - PostrgesSQL с открытым портом 5432, и учетными данными(user=root, user_password=12345, и разрешений на CRUD операции в БД postgres)
-    * запустить скрипт run.py.
+Для запуска необходимо наличие на целевом компьютере:
+    - ПО Docker и Docker-compose.
+    - Клонировать репозиторий на локальный компьютер.
+    - Из командной строки перейти в корень проекта,
+        (в папку с файлом 'docker-compose.yml')
+    - Ввести команду 'docker compose up --build'
     
     
     
-Cсылка на GoogleSheet: https://docs.google.com/spreadsheets/d/1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE
+Cсылка на GoogleSheet: "https://docs.google.com/spreadsheets/d/1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE"
