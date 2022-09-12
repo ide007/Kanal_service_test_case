@@ -50,10 +50,12 @@ def create_database(connect_to_db, query):
     except OperationalError as err:
         print(f"The error '{err}' occurred")
 
-
 # инициализация подключения к БД.
-connection = create_connection('postgres', 'postgres', 'admin',
-                               '127.0.0.1', '5432')
+connection = create_connection('postgres',
+                               'postgres',
+                               'admin',
+                               'db',
+                               '5432')
 
 # сброс таблицы в случаи повторного использования.
 drop_table_if_exists = 'DROP TABLE IF EXISTS public.test_data'
