@@ -14,3 +14,4 @@
     - установлены пакеты из файла requirements.txt
     - PostrgesSQL с открытым портом 5432, и учетными данными(user=root, user_password=12345, и разрешений на CRUD операции в БД postgres)
     * запустить скрипт run.py
+ссылка на GoogleSheet: https://docs.google.com/spreadsheets/d/1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE
