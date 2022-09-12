@@ -1,7 +1,4 @@
-version: '3.0'
-
-volumes:
-    postgres-data:
+version: '3.0.1'
 
 services:
     db:
@@ -10,18 +7,14 @@ services:
         restart: always
         ports:
             - 5432:5432
-        expose:
-            - 5432
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: admin
             POSTGRES_DB: postgres
-
     app:
-        build:
-            context: ./app/
         privileged: true
+        build: ./app/
+        command: bash -c "
+            ./wait-for-postgres.sh db && python3 run.py"
         depends_on:
             - db
-        command: bash -c "
-            python run.py"

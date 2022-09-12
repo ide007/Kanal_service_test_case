@@ -53,7 +53,7 @@ def create_database(connect_to_db, query):
 
 # инициализация подключения к БД.
 connection = create_connection('postgres', 'postgres', 'admin',
-                               'localhost', '5432')
+                               '127.0.0.1', '5432')
 
 # сброс таблицы в случаи повторного использования.
 drop_table_if_exists = 'DROP TABLE IF EXISTS public.test_data'
