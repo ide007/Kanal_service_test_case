@@ -1,35 +1,48 @@
+"""
+Данный модуль случит для получения курса валюты с сайта Центра Банка
+https://www.cbr.ru на текущую дату.
+"""
 from requests import get, utils
 
 
-def currency_rate(money, currency='USD'):
-    currency = currency.upper()
+def currency_rate(currency='USD'):
+    """Функция для получения рублевого эквивалента иностранной валюты.
+    :param currency: валюта(3 символа на латинской раскладке, в любом регистре)
+    :return: номинал в российской валюте
+    """
+
+    currency = currency.upper() # валюта
+    # api ЦБ для получения данных
     response = get('https://www.cbr.ru/scripts/XML_daily.asp')
-    endcodings = utils.get_encoding_from_headers(response.headers)
-    content = response.content.decode(encoding=endcodings)
+    # определение кодировки
+    endcode = utils.get_encoding_from_headers(response.headers)
+    # декодирование сырых данных
+    content = response.content.decode(encoding=endcode)
     if currency not in content:
         print('None')
     else:
-        currency_date = content[content.find('Date') + 6: ((content.find('Date')) + 16):]
-        # print(currency_date)
+        # currency_date = content[content.find('Date') + 6:
+        # ((content.find('Date')) + 16):]
+        # поиск нужной валюты
         slice_val = (
-        content[content.find(currency): ((content.find(currency)) + 85):])
-        value = slice_val.replace('</', ' ').replace('>', ' ').replace(',',
-                                                                       '.').replace(
-            '<', ' ').split()
+            content[content.find(currency): ((content.find(currency)) + 85):])
+        # отчистка данных от мусора
+        value = slice_val.replace('</', ' ').replace('>', ' ').replace(
+            ',', '.').replace('<', ' ').split()
 
-        kurs = []
+        exchange_rate = []
         for val in value:
-            if val.isalpha() != True:
-                kurs.append(val)
-        kurs[1] = float(kurs[1])
-        # print('Курс :', (kurs[0]), (currency), ' = ',
-        #       "{0:.2f} RUB".format(kurs[1]))
+            if not val.isalpha():
+                exchange_rate.append(float(val))
+        # print('Курс :', (exchange_rate[0]), (currency), ' = ',
+        #       "{0:.2f} RUB".format(exchange_rate[1]))
         # print(value)
 
-        return f'{(money * kurs[1]): .{2}f}'
+        return f'{(exchange_rate[1] / exchange_rate[0]):.{2}f}'
 
 
 if __name__ == '__main__':
+    # print(currency_rate(10000, 'uzs'))
     from sys import argv
-    # print(currency_rate(10))
+    # при необходимости можно выбрать валюту через параметр argv
     currency_rate(argv[1])
