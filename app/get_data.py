@@ -55,13 +55,15 @@ def add_column(lst):
     :param lst: исходный список списков.
     :return: отредактированный список списков
     """
-    # добавление названия колонки
+    # # добавление названия колонки
     lst[0].append('стоимость в руб,\u20bd')
+    # lst = lst[1:]
     # текущий курс валюты.
     curr_rate = float(cr.currency_rate())
     # вычисляем стоимость в рублях и добавляем данные в таблицу.
     for i in range(1, len(lst)):
-        _ = f'{curr_rate * int(lst[i][2]):.{2}f}'
+    # for i in lst:
+        _ = float(f'{curr_rate * int(lst[i][2]):.{2}f}')
         lst[i].append(_)
     return lst
 
@@ -75,7 +77,7 @@ def main():
         '1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE',
         'creds.json')
     )
-    # pprint(data)
+    # print(data[1][4])
     return data
 
 

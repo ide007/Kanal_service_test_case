@@ -53,38 +53,34 @@ def create_database(connect_to_db, query):
 
 # инициализация подключения к БД.
 connection = create_connection('postgres', 'postgres', 'admin',
-                               '127.0.0.1', '5432')
+                               'localhost', '5432')
 
-
-drop_db_if_exists = 'DROP DATABASE IF EXISTS kanal_service'
-create_database(connection, drop_db_if_exists)
-create_database_query = 'CREATE DATABASE kanal_service'
-create_database(connection, create_database_query)
-connection = create_connection('kanal_service', 'postgres', 'admin',
-                               '127.0.0.1', '5432')
-
+# сброс таблицы в случаи повторного использования.
+drop_table_if_exists = 'DROP TABLE IF EXISTS public.test_data'
+create_database(connection, drop_table_if_exists)
+# получение названия столбцов для создания таблицы.
+data = [tuple(i) for i in get_data.main()]
+columns = data[0]
+data = data[1:]
 # создание таблицы
-create_table_query = 'CREATE TABLE IF NOT EXISTS public.test_data' \
-                     '(id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ' \
-                     '(INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 10000 CACHE 1),' \
-                     'num text NOT NULL, ' \
-                     'order_num text NOT NULL, ' \
-                     'order_cost_us text NOT NULL, ' \
-                     'delivery_date text NOT NULL,' \
-                     'order_cost_ru text, ' \
-                     'CONSTRAINT test_data_pkey PRIMARY KEY (id)) ' \
-                     'TABLESPACE pg_default; ' \
-                     'ALTER TABLE IF EXISTS public.test_data ' \
-                     'OWNER to postgres;'
+create_table_query = f'CREATE TABLE IF NOT EXISTS public.test_data' \
+                     f'(id smallserial PRIMARY KEY,' \
+                     f'"{columns[0]}"  smallserial NOT NULL, ' \
+                     f'"{columns[1]}" int NOT NULL, ' \
+                     f'"{columns[2]}" int NOT NULL, ' \
+                     f'"{columns[3]}" text  NOT NULL,' \
+                     f'"{columns[4]}" real NOT NULL) ' \
+                     f'TABLESPACE pg_default; ' \
+                     f'ALTER TABLE IF EXISTS public.test_data ' \
+                     f'OWNER to postgres;'
 create_database(connection, create_table_query)
 
 # создаём список кортежей, для загрузки в БД
-data = [tuple(i) for i in get_data.main()]
 data_records = ", ".join(["%s"] * len(data))
 
 insert_query = (
-    f'INSERT INTO test_data (num, order_num, order_cost_us, delivery_date,'
-    f' order_cost_ru) VALUES {data_records}'
+    f'INSERT INTO test_data ("{columns[0]}", "{columns[1]}", "{columns[2]}", '
+    f'"{columns[3]}", "{columns[4]}") VALUES {data_records}'
 )
 
 # загружаем данные в БД.

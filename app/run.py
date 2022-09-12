@@ -30,8 +30,10 @@ def main():
     select = 'SELECT * FROM test_data'
     connect = db.connection
     data = execute_read_query(connect, select)
-    # pprint(data)
-    return data
+
+    print("Data from db-postgres:")
+    pprint(data)
+    # return data
 
 
 if __name__ == '__main__':
