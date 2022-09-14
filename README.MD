@@ -11,11 +11,12 @@
     
 Для запуска необходимо наличие на целевом компьютере:
     - ПО Docker и Docker-compose.
+    - Клиент Docker Desktop должен быть запущен. 
     - Клонировать репозиторий на локальный компьютер.
     - Из командной строки перейти в корень проекта,
         (в папку с файлом 'docker-compose.yml')
     - Ввести команду 'docker compose up --build'
-    
-    
+ 
+* необходимо найти в telegram бота @yi_testing_telegram_bot.
     
 Cсылка на GoogleSheet: "https://docs.google.com/spreadsheets/d/1iEudEKROWhVjCkJQk1OdYpokrc8DL5iG4Zze_VCy8VE"

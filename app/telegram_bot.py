@@ -1,5 +1,5 @@
 import telebot
-from app.delivery_date_check import check_date
+from delivery_date_check import check_date
 
 bot = telebot.TeleBot('5591075887:AAHqJoAHlBWctgVfVUXuDTUZbKw4-2h28rE')
 check = check_date()
