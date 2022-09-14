@@ -15,6 +15,6 @@ services:
         privileged: true
         build: ./app
         command: bash -c "
-            ./wait-for-postgres.sh db && python3 run.py"
+            ./wait-for-postgres.sh db && python3 telegram_bot.py"
         depends_on:
             - db

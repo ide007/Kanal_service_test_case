@@ -55,6 +55,7 @@ connection = create_connection('postgres',
                                'postgres',
                                'admin',
                                'db',
+                               # 'localhost',
                                '5432')
 
 # сброс таблицы в случаи повторного использования.

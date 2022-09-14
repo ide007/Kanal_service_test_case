@@ -22,7 +22,7 @@ def execute_read_query(connection, query):
         print(f'The error {err} occured')
 
 
-def main():
+def get_data():
     """
     Функция для запуска модуля. Возвращает все записи таблицы test_data.
     :return: data
@@ -31,10 +31,10 @@ def main():
     connect = db.connection
     data = execute_read_query(connect, select)
 
-    print("Data from db-postgres:")
-    pprint(data)
-    # return data
+    # print("Data from db-postgres:")
+    # pprint(data)
+    return data
 
 
 if __name__ == '__main__':
-    main()
+    get_data()
